@@ -13,8 +13,7 @@ struct CartToolBarView: View {
     
     var body: some View {
         ZStack{
-          
-            Rectangle()
+           Rectangle()
                 .fill(Color.orange)
                 .frame(width: 60, height: 35)
                 .cornerRadius(10)
@@ -28,11 +27,8 @@ struct CartToolBarView: View {
                     .font(.caption)
                     .foregroundColor(Color.white)
             }
-            
         }
     }
-    
-    
 }
 
 struct CartToolBarView_Previews: PreviewProvider {

@@ -90,6 +90,6 @@ struct OrderItemCellView: View {
 
 struct OrderItemCellView_Previews: PreviewProvider {
     static var previews: some View {
-        OrderItemCellView(viewModel: StoreViewModel(), item: Food.example)
+        OrderItemCellView(viewModel: StoreViewModel(), item: FoodItem.example)
     }
 }

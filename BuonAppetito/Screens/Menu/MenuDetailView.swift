@@ -56,7 +56,7 @@ struct MenuDetailView: View {
     @ViewBuilder
     func ingredientsView() -> some View {
         
-        if let foodItem = item as? Food {
+        if let foodItem = item as? FoodItem {
             VStack {
                 HStack{
                     StatView(name: "Ratings", value: String(format: "%.1f", foodItem.rating), image: "star.fill", color: .yellow)
@@ -84,6 +84,6 @@ struct MenuDetailView: View {
 
 struct DrinkDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuDetailView(viewModel: StoreViewModel(), item: Drink.example)
+        MenuDetailView(viewModel: StoreViewModel(), item: DrinkItem.example)
     }
 }

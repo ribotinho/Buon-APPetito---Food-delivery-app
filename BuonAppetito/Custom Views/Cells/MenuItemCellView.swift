@@ -14,7 +14,6 @@ struct MenuItemCellView: View {
     var body: some View {
         
         ZStack {
-            
             Rectangle()
                 .fill(Color.white)
                 .cornerRadius(10)
@@ -53,6 +52,6 @@ struct MenuItemCellView: View {
 struct MenuItemView_Previews: PreviewProvider {
 
     static var previews: some View {
-        MenuItemCellView(item: Food.example)
+        MenuItemCellView(item: FoodItem.example)
     }
 }

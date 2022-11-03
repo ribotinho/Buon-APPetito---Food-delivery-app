@@ -55,6 +55,6 @@ struct MenuItemStepper: View {
 
 struct ItemStepper_Previews: PreviewProvider {
     static var previews: some View {
-        MenuItemStepper(item: .constant(Drink.example))
+        MenuItemStepper(item: .constant(DrinkItem.example))
     }
 }

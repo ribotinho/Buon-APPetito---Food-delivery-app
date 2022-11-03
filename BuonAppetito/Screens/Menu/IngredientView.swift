@@ -61,6 +61,6 @@ struct IngredientView: View {
 
 struct IngredientView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientView(viewModel: StoreViewModel(), item: .constant(Food.example), ingredient: Ingredient.example)
+        IngredientView(viewModel: StoreViewModel(), item: .constant(FoodItem.example), ingredient: Ingredient.example)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Drink : StoreItem {
+struct DrinkItem : StoreItem {
 
     var id: UUID = UUID()
     var name: String
@@ -23,6 +23,6 @@ struct Drink : StoreItem {
     }
 }
 
-extension Drink {
-    static let example = Drink(name: "Water", description: "", quantity: 1, price: 1, kcal: 0, type: .beverage, imageName: "water")
+extension DrinkItem {
+    static let example = DrinkItem(name: "Water", description: "", quantity: 1, price: 1, kcal: 0, type: .beverage, imageName: "water")
 }

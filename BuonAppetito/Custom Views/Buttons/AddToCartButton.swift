@@ -11,7 +11,6 @@ struct AddToCartButton: View {
     @ObservedObject var viewModel : StoreViewModel
     var item : any StoreItem
     
-    
     var body: some View {
         Button {
             viewModel.order(item: item)
@@ -33,6 +32,6 @@ struct AddToCartButton: View {
 
 struct AddToCartButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddToCartButton(viewModel: StoreViewModel(), item: Food.example)
+        AddToCartButton(viewModel: StoreViewModel(), item: FoodItem.example)
     }
 }

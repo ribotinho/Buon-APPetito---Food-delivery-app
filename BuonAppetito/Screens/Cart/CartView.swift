@@ -38,7 +38,9 @@ struct CartView: View {
                     
                     subtotal
                     
-                    PlacerOrderButton(viewModel: viewModel)
+                    NavigationLink(destination: OrderCompleteView()) {
+                        OrderButton(text: "Place Order")
+                    }
                 }
             }
         }
