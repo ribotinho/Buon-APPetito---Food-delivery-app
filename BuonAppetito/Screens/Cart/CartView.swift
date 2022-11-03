@@ -75,7 +75,7 @@ struct CartView: View {
                 Text("Subtotal")
                     .foregroundColor(.gray)
                 Spacer()
-                Text("\(String(format: "%.1f € ",viewModel.orderAmount + 10))")
+                Text("\(String(format: "%.1f €",viewModel.orderAmount + 10))")
                     .foregroundColor(.orange)
                     .bold()
             }

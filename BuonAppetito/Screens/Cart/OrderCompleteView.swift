@@ -25,9 +25,9 @@ struct OrderCompleteView: View {
                 .padding(.bottom)
             
             Spacer()
-            NavigationLink(destination: Text("hola")) {
-                OrderButton(text: "Back to menu")
-            }
+            
+            
+            OrderButton(text: "Back to menu")
         }
     }
     
