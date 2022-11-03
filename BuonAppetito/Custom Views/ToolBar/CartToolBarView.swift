@@ -20,7 +20,7 @@ struct CartToolBarView: View {
                 .cornerRadius(10)
             
             HStack{
-                if (viewModel.order.count > 0) {
+                if (viewModel.orders.count > 0) {
                     Text("\(viewModel.orderCount())")
                         .foregroundColor(.white).bold().font(.caption)
                 }
@@ -31,6 +31,8 @@ struct CartToolBarView: View {
             
         }
     }
+    
+    
 }
 
 struct CartToolBarView_Previews: PreviewProvider {

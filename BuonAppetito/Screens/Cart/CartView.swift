@@ -11,11 +11,74 @@ struct CartView: View {
     @ObservedObject var viewModel : StoreViewModel
     
     var body: some View {
-        VStack{
-            ForEach(viewModel.order, id: \.anyHashableID){ order in
-                Text(order.name)
+        
+        ZStack{
+            
+            Color(UIColor.secondarySystemBackground)
+                .edgesIgnoringSafeArea(.all)
+            if viewModel.orders.count == 0 {
+                ZStack{
+                    Image("pizza-bbq")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 500, height: 500)
+                        .opacity(0.1)
+                    Text("Add an item to the cart")
+                        .foregroundColor(.gray)
+                        .font(.largeTitle)
+                }
+            }else {
+                VStack{
+                    ScrollView{
+                        ForEach(viewModel.orders, id: \.anyHashableID){ item in
+                            OrderItemCellView(viewModel: viewModel, item: item)
+                        }
+                    }
+                    Spacer()
+                    
+                    subtotal
+                    
+                    PlacerOrderButton(viewModel: viewModel)
+                }
             }
         }
+        .navigationTitle("Place Order")
+    }
+    
+    var subtotal: some View {
+        VStack{
+            HStack{
+                Text("Selected Items (\(viewModel.orderCount()))")
+                    .foregroundColor(.gray)
+                Spacer()
+                Text("\(String(format: "%.1f € ",viewModel.orderAmount()))")
+                    .foregroundColor(.gray)
+                    .bold()
+            }
+            
+            HStack{
+                Text("Delivery fee")
+                    .foregroundColor(.gray)
+                Spacer()
+                Text("10.0 €")
+                    .foregroundColor(.gray)
+                    .bold()
+            }
+            
+            Rectangle()
+                .stroke()
+                .frame(height: 1)
+            
+            HStack{
+                Text("Subtotal")
+                    .foregroundColor(.gray)
+                Spacer()
+                Text("\(String(format: "%.1f € ",viewModel.orderAmount() + 10))")
+                    .foregroundColor(.orange)
+                    .bold()
+            }
+        }
+        .padding(.horizontal)
     }
 }
 

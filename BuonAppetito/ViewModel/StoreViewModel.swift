@@ -9,7 +9,7 @@ import Foundation
 
 class StoreViewModel : ObservableObject{
     @Published var items : [any StoreItem] = []
-    @Published var order : [any StoreItem] = []
+    @Published var orders : [any StoreItem] = []
     
     func getItems(for type: ItemType) -> [any StoreItem] {
         return items.filter({$0.type == type})
@@ -20,11 +20,29 @@ class StoreViewModel : ObservableObject{
     }
     
     func order(item : any StoreItem) {
-        order.append(item)
+        if let index = orders.firstIndex(where: {$0.name == item.name}){
+            orders[index].quantity += 1
+        }else {
+            orders.append(item)
+        }
+    }
+    
+    func remove(item: any StoreItem){
+        if let index = orders.firstIndex(where: {$0.name == item.name}) {
+            orders.remove(at: index)
+        }
     }
     
     func orderCount() -> Int {
-        return order.map({$0.quantity}).reduce(0, +)
+        return orders.map({$0.quantity}).reduce(0, +)
+    }
+    
+    func orderAmount() -> Double {
+        var result = 0.0
+        for item in orders {
+            result += item.price * Double(item.quantity)
+        }
+        return result
     }
 
 }
