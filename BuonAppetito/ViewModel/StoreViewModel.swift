@@ -10,6 +10,8 @@ import Foundation
 class StoreViewModel : ObservableObject{
     @Published var items : [any StoreItem] = []
     @Published var orders : [any StoreItem] = []
+    @Published var orderCount : Int = 0
+    @Published var orderAmount : Double = 0
     
     func getItems(for type: ItemType) -> [any StoreItem] {
         return items.filter({$0.type == type})
@@ -20,31 +22,32 @@ class StoreViewModel : ObservableObject{
     }
     
     func order(item : any StoreItem) {
+        
+        orderAmount += item.price * Double(item.quantity)
         if let index = orders.firstIndex(where: {$0.name == item.name}){
             orders[index].quantity += 1
+            orderCount += 1
         }else {
+            orderCount += item.quantity
             orders.append(item)
         }
     }
     
     func remove(item: any StoreItem){
         if let index = orders.firstIndex(where: {$0.name == item.name}) {
+            orders[index].quantity -= 1
+            orderCount -= 1
+            orderAmount -= item.price
+        }
+    }
+    
+    func removeAll(item: any StoreItem){
+        if let index = orders.firstIndex(where: {$0.name == item.name}) {
             orders.remove(at: index)
+            orderCount -= item.quantity
+            orderAmount -= item.price * Double(item.quantity)
         }
     }
-    
-    func orderCount() -> Int {
-        return orders.map({$0.quantity}).reduce(0, +)
-    }
-    
-    func orderAmount() -> Double {
-        var result = 0.0
-        for item in orders {
-            result += item.price * Double(item.quantity)
-        }
-        return result
-    }
-
 }
 
 
@@ -64,21 +67,21 @@ let MockData : [any StoreItem] = [
 ]
 
 let pizzaIngredients : [Ingredient] = [
-    Ingredient(name: "Jalapeño", imageName: "jalapeno", price: 2),
-    Ingredient(name: "Cheese", imageName: "cheese", price: 2),
-    Ingredient(name: "Mushrooms", imageName: "mushroom", price: 1.5),
-    Ingredient(name: "Pineapple", imageName: "pineapple", price: 1.5)
+    Ingredient(name: "Jalapeño", imageName: "jalapeno"),
+    Ingredient(name: "Cheese", imageName: "cheese"),
+    Ingredient(name: "Mushrooms", imageName: "mushroom"),
+    Ingredient(name: "Pineapple", imageName: "pineapple")
 ]
 
 let burgerIngredients: [Ingredient] = [
-    Ingredient(name: "Tomato", imageName: "tomato", price: 2),
-    Ingredient(name: "Lettuce", imageName: "lettuce", price: 2),
-    Ingredient(name: "Onions", imageName: "onion", price: 2),
-    Ingredient(name: "Extra patty", imageName: "patty", price: 2)
+    Ingredient(name: "Tomato", imageName: "tomato"),
+    Ingredient(name: "Lettuce", imageName: "lettuce"),
+    Ingredient(name: "Onions", imageName: "onion"),
+    Ingredient(name: "Extra patty", imageName: "patty")
 ]
 
 let dessertIngredients: [Ingredient] = [
-    Ingredient(name: "Syrup", imageName: "syrup", price: 1),
-    Ingredient(name: "Sprinkles", imageName: "sprinkles", price: 3),
-    Ingredient(name: "Whip cream", imageName: "whip-cream", price: 5)
+    Ingredient(name: "Syrup", imageName: "syrup"),
+    Ingredient(name: "Sprinkles", imageName: "sprinkles"),
+    Ingredient(name: "Whip cream", imageName: "whip-cream")
 ]

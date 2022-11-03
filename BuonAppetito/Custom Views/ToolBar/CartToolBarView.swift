@@ -21,7 +21,7 @@ struct CartToolBarView: View {
             
             HStack{
                 if (viewModel.orders.count > 0) {
-                    Text("\(viewModel.orderCount())")
+                    Text("\(viewModel.orderCount)")
                         .foregroundColor(.white).bold().font(.caption)
                 }
                 Image(systemName: "cart.fill")

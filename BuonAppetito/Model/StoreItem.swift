@@ -37,10 +37,6 @@ extension StoreItem {
     }
 }
 
-extension StoreItem where Self == Food {
-    var ingredients: [Ingredient] { [] }
-}
-
 enum ItemType : String, CaseIterable {
     case all = "All"
     case pizza = "Pizza"

@@ -29,7 +29,6 @@ struct OrderItemCellView: View {
                     Text("\(item.name) - \(String(format: "%.1f €", item.totalPrice))")
                         .bold()
                         .padding(.bottom, 4)
-                    //Text("\(String(format: "%.1f €", item.totalPrice))")
                     
                     HStack {
                         stepper()
@@ -39,7 +38,7 @@ struct OrderItemCellView: View {
                             .font(.title)
                             .padding(.trailing)
                             .onTapGesture {
-                                viewModel.remove(item: item)
+                                viewModel.removeAll(item: item)
                             }
                     }
                 }
@@ -63,7 +62,10 @@ struct OrderItemCellView: View {
                     .frame(height:30)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        if item.quantity >= 1 { item.quantity -= 1 }
+                        if item.quantity > 1 {
+                            item.quantity -= 1
+                            viewModel.remove(item: item)
+                        }
                     }
                 
                 Text("\(item.quantity)")
@@ -75,6 +77,7 @@ struct OrderItemCellView: View {
                     .frame(height:30)
                     .contentShape(Rectangle())
                     .onTapGesture {
+                        viewModel.order(item: item)
                         item.quantity += 1
                     }
             }

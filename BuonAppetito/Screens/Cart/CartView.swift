@@ -30,8 +30,8 @@ struct CartView: View {
             }else {
                 VStack{
                     ScrollView{
-                        ForEach(viewModel.orders, id: \.anyHashableID){ item in
-                            OrderItemCellView(viewModel: viewModel, item: item)
+                        ForEach(viewModel.orders, id: \.anyHashableID){ order in
+                            OrderItemCellView(viewModel: viewModel, item: order)
                         }
                     }
                     Spacer()
@@ -48,10 +48,10 @@ struct CartView: View {
     var subtotal: some View {
         VStack{
             HStack{
-                Text("Selected Items (\(viewModel.orderCount()))")
+                Text("Selected Items (\(viewModel.orderCount))")
                     .foregroundColor(.gray)
                 Spacer()
-                Text("\(String(format: "%.1f € ",viewModel.orderAmount()))")
+                Text("\(String(format: "%.1f €",viewModel.orderAmount))")
                     .foregroundColor(.gray)
                     .bold()
             }
@@ -73,7 +73,7 @@ struct CartView: View {
                 Text("Subtotal")
                     .foregroundColor(.gray)
                 Spacer()
-                Text("\(String(format: "%.1f € ",viewModel.orderAmount() + 10))")
+                Text("\(String(format: "%.1f € ",viewModel.orderAmount + 10))")
                     .foregroundColor(.orange)
                     .bold()
             }

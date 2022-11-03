@@ -18,7 +18,7 @@ struct IngredientView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:25, height:25)
-            Text("\(ingredient.name) - \(String(format: "%.1f€", ingredient.price))")
+            Text("\(ingredient.name)")
             
             Spacer()
             

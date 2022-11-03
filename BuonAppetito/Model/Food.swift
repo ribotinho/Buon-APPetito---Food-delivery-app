@@ -23,7 +23,7 @@ struct Food : StoreItem {
     var isFavorite : Bool = false
     
     var totalPrice : Double {
-        return (price  + ingredients.map({$0.totalPrice}).reduce(0, +)) * Double(quantity)
+        return price  * Double(quantity)
     }
 }
 
