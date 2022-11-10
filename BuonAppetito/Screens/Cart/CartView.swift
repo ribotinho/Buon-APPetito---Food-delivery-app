@@ -11,40 +11,41 @@ struct CartView: View {
     @ObservedObject var viewModel : StoreViewModel
     
     var body: some View {
-        
-        ZStack{
-            
-            Color(UIColor.secondarySystemBackground)
-                .edgesIgnoringSafeArea(.all)
-            if viewModel.orders.count == 0 {
-                ZStack{
-                    Image("pizza-bbq")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 500, height: 500)
-                        .opacity(0.1)
-                    Text("Add an item to the cart")
-                        .foregroundColor(.gray)
-                        .font(.largeTitle)
-                }
-            }else {
-                VStack{
-                    ScrollView{
-                        ForEach(viewModel.orders, id: \.anyHashableID){ order in
-                            OrderItemCellView(viewModel: viewModel, item: order)
-                        }
+        NavigationView {
+            ZStack{
+                
+                Color(UIColor.secondarySystemBackground)
+                    .edgesIgnoringSafeArea(.all)
+                if viewModel.orders.count == 0 {
+                    ZStack{
+                        Image("pizza-bbq")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 500, height: 500)
+                            .opacity(0.1)
+                        Text("Add an item to the cart")
+                            .foregroundColor(.gray)
+                            .font(.largeTitle)
                     }
-                    Spacer()
-                    
-                    subtotal
-                    
-                    NavigationLink(destination: OrderCompleteView()) {
-                        OrderButton(text: "Place Order")
+                }else {
+                    VStack{
+                        ScrollView{
+                            ForEach(viewModel.orders, id: \.anyHashableID){ order in
+                                OrderItemCellView(viewModel: viewModel, item: order)
+                            }
+                        }
+                        Spacer()
+                        
+                        subtotal
+                        
+                        NavigationLink(destination: OrderCompleteView()) {
+                            OrderButton(text: "Place Order")
+                        }
                     }
                 }
             }
+            .navigationTitle("Place Order")
         }
-        .navigationTitle("Place Order")
     }
     
     var subtotal: some View {

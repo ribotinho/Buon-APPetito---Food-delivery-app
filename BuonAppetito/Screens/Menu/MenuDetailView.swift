@@ -10,44 +10,54 @@ import SwiftUI
 struct MenuDetailView: View {
     @ObservedObject var viewModel : StoreViewModel
     @State var item : any StoreItem
+    @State var addButtonTapped : Bool = false
+    @State var notificationXOffset : CGFloat = 0
+    @State var notificationYOffset : CGFloat = -500
+    @Binding var selectedTab : Int
     
     var body: some View {
         
-        VStack {
-            VStack(alignment: .center) {
-                
-                Image(item.imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width:150, height: 150)
-                
-            }
-            .padding()
+        ZStack{
             
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(item.type.rawValue.uppercased())
-                        .foregroundColor(.secondary)
-                    Text(item.name)
-                        .font(.title)
+            notificationView()
+            
+            VStack {
+                VStack(alignment: .center) {
+                    
+                    Image(item.imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width:125, height: 125)
+                    
                 }
-                Spacer()
                 
-                MenuItemStepper(item: $item)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(item.type.rawValue.uppercased())
+                            .foregroundColor(.secondary)
+                        Text(item.name)
+                            .font(.title)
+                    }
+                    Spacer()
+                    
+                    MenuItemStepper(item: $item)
+                }
+                .padding(.horizontal)
+                
+                ingredientsView()
+                
+                
+                addtoCartButton()
+                
+                
             }
-            .padding()
-            
-            ingredientsView()
-            
-            Spacer()
-            
-            AddToCartButton(viewModel: viewModel, item: item)
-            
-        }
-        .toolbar {
-            ToolbarItem{
-                NavigationLink(destination: CartView(viewModel: viewModel)) {
-                    CartToolBarView(viewModel: viewModel)
+            .toolbar {
+                ToolbarItem{
+                        CartToolBarView(viewModel: viewModel)
+                        .onTapGesture {
+                            selectedTab = 2
+                        }
+                    
                 }
             }
         }
@@ -80,10 +90,66 @@ struct MenuDetailView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    func addtoCartButton() -> some View {
+        
+        Button {
+            withAnimation{
+                notificationYOffset = -384
+            }
+            withAnimation(Animation.linear.delay(1)){
+                addButtonTapped = true
+            }
+            withAnimation(.linear.delay(2)){
+                notificationXOffset = 150
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
+                viewModel.order(item: item)
+                notificationXOffset = 0
+                notificationYOffset = -500
+                addButtonTapped = false
+            }
+        } label: {
+            ZStack{
+                Capsule()
+                    .fill(.orange)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .padding(.horizontal)
+                
+                Label("Add to cart - \(String(format: "%.1f€", item.totalPrice))", systemImage: "cart.fill")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func notificationView() -> some View {
+        HStack{
+            Image(item.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 25, height: 25)
+            if !addButtonTapped {
+                Text("added to cart")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+        }
+        .frame(width: addButtonTapped ? 30 : 150)
+        .padding(.horizontal, 5)
+        .padding(.vertical, 5)
+        .background(Capsule().fill(.orange))
+        .offset(x:notificationXOffset, y: notificationYOffset)
+        .opacity(notificationXOffset > 90 ? 0 : 1)
+    }
+    
 }
 
 struct DrinkDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuDetailView(viewModel: StoreViewModel(), item: DrinkItem.example)
+        MenuDetailView(viewModel: StoreViewModel(), item: DrinkItem.example, selectedTab: .constant(2))
     }
 }

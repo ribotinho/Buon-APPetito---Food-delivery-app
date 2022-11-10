@@ -10,7 +10,8 @@ import SwiftUI
 struct MenuView: View {
     
     let columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-    @StateObject var viewModel = StoreViewModel()
+    @ObservedObject var viewModel : StoreViewModel
+    @Binding var selectedTab : Int
     @State var filteredItems : [any StoreItem] = []
     @State var selectedType : ItemType = .all {
         didSet {
@@ -36,7 +37,7 @@ struct MenuView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVGrid(columns: columns, alignment: .leading) {
                             ForEach(filteredItems, id: \.anyHashableID){ item in
-                                NavigationLink(destination: MenuDetailView(viewModel: viewModel, item: item)) {
+                                NavigationLink(destination: MenuDetailView(viewModel: viewModel, item: item, selectedTab: $selectedTab)) {
                                     MenuItemCellView(item: item)
                                 }
                             }
@@ -45,7 +46,6 @@ struct MenuView: View {
                     .padding()
                 }
             }
-            .edgesIgnoringSafeArea(.bottom)
             .navigationTitle("Buon APPetito")
             .onAppear{
                 viewModel.fetch() // simulating NetworkCall
@@ -53,9 +53,11 @@ struct MenuView: View {
             }
             .toolbar {
                 ToolbarItem{
-                    NavigationLink(destination: CartView(viewModel: viewModel)) {
-                        CartToolBarView(viewModel: viewModel)
-                    }
+                    CartToolBarView(viewModel: viewModel)
+                        .onTapGesture {
+                            selectedTab = 2
+                        }
+                    
                 }
             }
         }
@@ -98,8 +100,8 @@ struct MenuView: View {
 
 
 
-struct ContentView_Previews: PreviewProvider {
+struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView()
+        MenuView(viewModel: StoreViewModel(), selectedTab: .constant(2))
     }
 }

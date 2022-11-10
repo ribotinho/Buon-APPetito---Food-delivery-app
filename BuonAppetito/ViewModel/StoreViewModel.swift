@@ -24,11 +24,13 @@ class StoreViewModel : ObservableObject{
     func order(item : any StoreItem) {
         
         orderAmount += item.price * Double(item.quantity)
+        orderCount += item.quantity
+        
         if let index = orders.firstIndex(where: {$0.name == item.name}){
-            orders[index].quantity += 1
-            orderCount += 1
+            print("adding \(item.quantity) items that currently has \(orders[index].quantity)")
+            orders[index].quantity += item.quantity
         }else {
-            orderCount += item.quantity
+            print("adding new item")
             orders.append(item)
         }
     }
