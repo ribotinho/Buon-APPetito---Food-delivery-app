@@ -23,13 +23,13 @@ struct BuonAppetitoApp: App {
                 
                 MenuView(viewModel: viewModel, selectedTab: $selectedTab)
                     .tabItem {
-                        Image(systemName: "fork.knife")
+                        Label("Menu", systemImage: "fork.knife")
                     }
                     .tag(1)
                 
                 CartView(viewModel: viewModel)
                     .tabItem {
-                        Image(systemName: "cart.fill")
+                        Label("Cart", systemImage: "cart.fill")
                     }
                     .tag(2)
                     .badge(viewModel.orders.count > 0 ? viewModel.orderCount: 0)

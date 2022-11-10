@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct MenuItemStepper: View {
-    @Binding var item : any StoreItem
+struct MenuItemStepper <T : StoreItem>: View {
+    @Binding var item : T
     
     var body: some View {
         ZStack {
-            
             Capsule()
                 .fill(Color(UIColor.secondarySystemBackground.cgColor))
                 .frame(width:125, height: 50)

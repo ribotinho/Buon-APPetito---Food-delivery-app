@@ -12,6 +12,7 @@ struct Ingredient : Hashable {
     var quantity : Int = 0
     var imageName : String
     var kcal : Int
+    var price : Double
     
     mutating func add(){
         quantity += 1
@@ -23,5 +24,5 @@ struct Ingredient : Hashable {
 }
 
 extension Ingredient {
-    static let example = Ingredient(name: "Tomato", quantity: 0, imageName: "tomato", kcal: 15)
+    static let example = Ingredient(name: "Tomato", quantity: 0, imageName: "tomato", kcal: 15, price: 0.15)
 }

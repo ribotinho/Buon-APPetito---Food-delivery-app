@@ -37,8 +37,14 @@ struct MenuView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVGrid(columns: columns, alignment: .leading) {
                             ForEach(filteredItems, id: \.anyHashableID){ item in
-                                NavigationLink(destination: MenuDetailView(viewModel: viewModel, item: item, selectedTab: $selectedTab)) {
-                                    MenuItemCellView(item: item)
+                                if item is DrinkItem {
+                                    NavigationLink(destination: DrinkItemDetailView(viewModel: viewModel, item: item as! DrinkItem, selectedTab: $selectedTab)) {
+                                        MenuItemCellView(item: item)
+                                    }
+                                }else if item is FoodItem {
+                                    NavigationLink(destination: FoodItemDetailView(viewModel: viewModel, item: item as! FoodItem, selectedTab: $selectedTab)) {
+                                        MenuItemCellView(item: item)
+                                    }
                                 }
                             }
                         }

@@ -76,21 +76,21 @@ let MockData : [any StoreItem] = [
 ]
 
 let pizzaIngredients : [Ingredient] = [
-    Ingredient(name: "Jalapeño", imageName: "jalapeno", kcal: 10),
-    Ingredient(name: "Cheese", imageName: "cheese", kcal: 100),
-    Ingredient(name: "Mushrooms", imageName: "mushroom", kcal: 15),
-    Ingredient(name: "Pineapple", imageName: "pineapple", kcal: 25)
+    Ingredient(name: "Jalapeño", imageName: "jalapeno", kcal: 10, price: 0.25),
+    Ingredient(name: "Cheese", imageName: "cheese", kcal: 100, price: 1.00),
+    Ingredient(name: "Mushrooms", imageName: "mushroom", kcal: 15, price: 0.50),
+    Ingredient(name: "Pineapple", imageName: "pineapple", kcal: 25, price: 0.75)
 ]
 
 let burgerIngredients: [Ingredient] = [
-    Ingredient(name: "Tomato", imageName: "tomato", kcal: 10),
-    Ingredient(name: "Lettuce", imageName: "lettuce", kcal: 5),
-    Ingredient(name: "Onions", imageName: "onion", kcal: 10),
-    Ingredient(name: "Extra patty", imageName: "patty", kcal: 150),
+    Ingredient(name: "Tomato", imageName: "tomato", kcal: 10, price: 0.25),
+    Ingredient(name: "Lettuce", imageName: "lettuce", kcal: 5, price: 0.10),
+    Ingredient(name: "Onions", imageName: "onion", kcal: 10, price: 0.50),
+    Ingredient(name: "Extra patty", imageName: "patty", kcal: 150, price:2.50),
 ]
 
 let dessertIngredients: [Ingredient] = [
-    Ingredient(name: "Syrup", imageName: "syrup", kcal: 150),
-    Ingredient(name: "Sprinkles", imageName: "sprinkles", kcal: 30),
-    Ingredient(name: "Whip cream", imageName: "whip-cream", kcal: 25),
+    Ingredient(name: "Syrup", imageName: "syrup", kcal: 150, price: 1.50),
+    Ingredient(name: "Sprinkles", imageName: "sprinkles", kcal: 50, price: 1.25),
+    Ingredient(name: "Whip cream", imageName: "whip-cream", kcal: 75, price: 2.00),
 ]

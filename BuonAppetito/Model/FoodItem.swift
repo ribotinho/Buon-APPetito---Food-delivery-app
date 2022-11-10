@@ -20,9 +20,13 @@ struct FoodItem : StoreItem {
     var ingredients : [Ingredient]
     var rating : Double
     var preparationTime : Int
+    var totalKcal : Int {
+        return kcal + ingredients.map{ $0.quantity > 0 ? $0.kcal : 0}.reduce(0, +)
+    }
     
     var totalPrice : Double {
-        return price  * Double(quantity)
+        let amount = price + ingredients.map({$0.quantity > 0 ? $0.price : 0}).reduce(0, +)
+        return amount  * Double(quantity)
     }
     
     mutating func addIngredient(ingredient : Ingredient){
