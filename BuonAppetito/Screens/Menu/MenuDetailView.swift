@@ -61,7 +61,6 @@ struct MenuDetailView: View {
     
     @ViewBuilder
     func ingredientsView() -> some View {
-        
         if let foodItem = item as? FoodItem {
             VStack {
                 HStack{
@@ -79,7 +78,7 @@ struct MenuDetailView: View {
                         .foregroundColor(.secondary)
                     
                     ForEach(foodItem.ingredients, id: \.self){ ingredient in
-                        IngredientView(viewModel: viewModel, item: $item, ingredient: ingredient)
+                        IngredientView(viewModel: viewModel, item: foodItem, ingredient: ingredient)
                     }
                 }
                 .padding(.horizontal)

@@ -21,7 +21,7 @@ class StoreViewModel : ObservableObject{
         items = MockData
     }
     
-    func order(item : any StoreItem) {
+    func order(item : some StoreItem) {
         
         orderAmount += item.price * Double(item.quantity)
         orderCount += item.quantity
@@ -33,7 +33,7 @@ class StoreViewModel : ObservableObject{
         }
     }
     
-    func add(item: any StoreItem){
+    func add(item: some StoreItem){
         if let index = orders.firstIndex(where: {$0.name == item.name}) {
             orders[index].quantity += 1
             orderCount += 1
@@ -41,7 +41,7 @@ class StoreViewModel : ObservableObject{
         }
     }
     
-    func remove(item: any StoreItem){
+    func remove(item: some StoreItem){
         if let index = orders.firstIndex(where: {$0.name == item.name}) {
             orders[index].quantity -= 1
             orderCount -= 1
@@ -49,7 +49,7 @@ class StoreViewModel : ObservableObject{
         }
     }
     
-    func removeAll(item: any StoreItem){
+    func removeAll(item: some StoreItem){
         if let index = orders.firstIndex(where: {$0.name == item.name}) {
             orders.remove(at: index)
             orderCount -= item.quantity
@@ -59,6 +59,7 @@ class StoreViewModel : ObservableObject{
 }
 
 
+//MARK: - Mock Data
 let MockData : [any StoreItem] = [
     FoodItem(name: "BBQ Pizza", description: "bqq piza", quantity: 1, price: 14.5, kcal: 1500, type: .pizza, imageName: "pizza-bbq", ingredients: pizzaIngredients, rating: 4.5, preparationTime: 25),
     FoodItem(name: "Mushroom Pizza", description: "mushroom piza", quantity: 1, price: 12.5, kcal: 1000, type: .pizza, imageName: "pizza-mushroom", ingredients: pizzaIngredients, rating: 4.5, preparationTime: 25),

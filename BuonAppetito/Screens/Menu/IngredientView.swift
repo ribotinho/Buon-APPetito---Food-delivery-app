@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IngredientView: View {
     @ObservedObject var viewModel : StoreViewModel
-    @Binding var item : any StoreItem
+    @State var item : FoodItem
     @State var ingredient : Ingredient
     
     var body: some View {
@@ -52,7 +52,7 @@ struct IngredientView: View {
                     .frame(height:30)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        ingredient.quantity += 1
+                        if ingredient.quantity == 0 { ingredient.quantity += 1 }
                     }
             }
         }
@@ -61,6 +61,6 @@ struct IngredientView: View {
 
 struct IngredientView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientView(viewModel: StoreViewModel(), item: .constant(FoodItem.example), ingredient: Ingredient.example)
+        IngredientView(viewModel: StoreViewModel(), item: FoodItem.example, ingredient: Ingredient.example)
     }
 }

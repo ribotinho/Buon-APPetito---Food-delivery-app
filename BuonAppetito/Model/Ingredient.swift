@@ -12,6 +12,14 @@ struct Ingredient : Hashable {
     var quantity : Int = 0
     var imageName : String
     var kcal : Int
+    
+    mutating func add(){
+        quantity += 1
+    }
+    
+    mutating func remove(){
+        quantity -= 1
+    }
 }
 
 extension Ingredient {

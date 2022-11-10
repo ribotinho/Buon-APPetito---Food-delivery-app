@@ -57,7 +57,6 @@ struct MenuView: View {
                         .onTapGesture {
                             selectedTab = 2
                         }
-                    
                 }
             }
         }
@@ -87,7 +86,6 @@ struct MenuView: View {
                                 .foregroundColor(type == selectedType ? .white : .black)
                                 .font(.caption)
                                 .bold()
-                                
                         }
                         .zIndex(1)
                     }

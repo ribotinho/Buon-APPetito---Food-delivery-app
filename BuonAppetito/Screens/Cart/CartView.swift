@@ -13,7 +13,6 @@ struct CartView: View {
     var body: some View {
         NavigationView {
             ZStack{
-                
                 Color(UIColor.secondarySystemBackground)
                     .edgesIgnoringSafeArea(.all)
                 if viewModel.orders.count == 0 {

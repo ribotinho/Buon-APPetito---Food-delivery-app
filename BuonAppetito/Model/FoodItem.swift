@@ -20,10 +20,21 @@ struct FoodItem : StoreItem {
     var ingredients : [Ingredient]
     var rating : Double
     var preparationTime : Int
-    var isFavorite : Bool = false
     
     var totalPrice : Double {
         return price  * Double(quantity)
+    }
+    
+    mutating func addIngredient(ingredient : Ingredient){
+        if let index = ingredients.firstIndex(where: {$0.name == ingredient.name}) {
+            ingredients[index].quantity += 1
+        }
+    }
+    
+    mutating func removeIngredient(ingredient : Ingredient){
+        if let index = ingredients.firstIndex(where: {$0.name == ingredient.name}) {
+            ingredients[index].quantity -= 1
+        }
     }
 }
 
