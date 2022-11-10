@@ -32,7 +32,8 @@ struct MenuItemCellView: View {
                 }
                 
                 HStack{
-                    Text(item.name).font(.footnote)
+                    Text(item.name)
+                        .font(.footnote)
                         .bold()
                         .foregroundColor(.black)
                         .lineLimit(1)

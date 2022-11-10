@@ -11,8 +11,9 @@ struct Ingredient : Hashable {
     var name : String
     var quantity : Int = 0
     var imageName : String
+    var kcal : Int
 }
 
 extension Ingredient {
-    static let example = Ingredient(name: "Tomato", quantity: 0, imageName: "tomato")
+    static let example = Ingredient(name: "Tomato", quantity: 0, imageName: "tomato", kcal: 15)
 }

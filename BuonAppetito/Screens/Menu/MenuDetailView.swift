@@ -23,12 +23,10 @@ struct MenuDetailView: View {
             
             VStack {
                 VStack(alignment: .center) {
-                    
                     Image(item.imageName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width:125, height: 125)
-                    
                 }
                 
                 HStack {
@@ -46,10 +44,9 @@ struct MenuDetailView: View {
                 
                 ingredientsView()
                 
+                Spacer()
                 
                 addtoCartButton()
-                
-                
             }
             .toolbar {
                 ToolbarItem{
@@ -57,7 +54,6 @@ struct MenuDetailView: View {
                         .onTapGesture {
                             selectedTab = 2
                         }
-                    
                 }
             }
         }

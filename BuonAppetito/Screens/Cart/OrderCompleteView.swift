@@ -26,11 +26,9 @@ struct OrderCompleteView: View {
             
             Spacer()
             
-            
             OrderButton(text: "Back to menu")
         }
     }
-    
 }
 
 struct OrderCompleteView_Previews: PreviewProvider {

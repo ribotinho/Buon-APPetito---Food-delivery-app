@@ -27,11 +27,17 @@ class StoreViewModel : ObservableObject{
         orderCount += item.quantity
         
         if let index = orders.firstIndex(where: {$0.name == item.name}){
-            print("adding \(item.quantity) items that currently has \(orders[index].quantity)")
             orders[index].quantity += item.quantity
         }else {
-            print("adding new item")
             orders.append(item)
+        }
+    }
+    
+    func add(item: any StoreItem){
+        if let index = orders.firstIndex(where: {$0.name == item.name}) {
+            orders[index].quantity += 1
+            orderCount += 1
+            orderAmount += item.price
         }
     }
     
@@ -69,21 +75,21 @@ let MockData : [any StoreItem] = [
 ]
 
 let pizzaIngredients : [Ingredient] = [
-    Ingredient(name: "Jalapeño", imageName: "jalapeno"),
-    Ingredient(name: "Cheese", imageName: "cheese"),
-    Ingredient(name: "Mushrooms", imageName: "mushroom"),
-    Ingredient(name: "Pineapple", imageName: "pineapple")
+    Ingredient(name: "Jalapeño", imageName: "jalapeno", kcal: 10),
+    Ingredient(name: "Cheese", imageName: "cheese", kcal: 100),
+    Ingredient(name: "Mushrooms", imageName: "mushroom", kcal: 15),
+    Ingredient(name: "Pineapple", imageName: "pineapple", kcal: 25)
 ]
 
 let burgerIngredients: [Ingredient] = [
-    Ingredient(name: "Tomato", imageName: "tomato"),
-    Ingredient(name: "Lettuce", imageName: "lettuce"),
-    Ingredient(name: "Onions", imageName: "onion"),
-    Ingredient(name: "Extra patty", imageName: "patty")
+    Ingredient(name: "Tomato", imageName: "tomato", kcal: 10),
+    Ingredient(name: "Lettuce", imageName: "lettuce", kcal: 5),
+    Ingredient(name: "Onions", imageName: "onion", kcal: 10),
+    Ingredient(name: "Extra patty", imageName: "patty", kcal: 150),
 ]
 
 let dessertIngredients: [Ingredient] = [
-    Ingredient(name: "Syrup", imageName: "syrup"),
-    Ingredient(name: "Sprinkles", imageName: "sprinkles"),
-    Ingredient(name: "Whip cream", imageName: "whip-cream")
+    Ingredient(name: "Syrup", imageName: "syrup", kcal: 150),
+    Ingredient(name: "Sprinkles", imageName: "sprinkles", kcal: 30),
+    Ingredient(name: "Whip cream", imageName: "whip-cream", kcal: 25),
 ]

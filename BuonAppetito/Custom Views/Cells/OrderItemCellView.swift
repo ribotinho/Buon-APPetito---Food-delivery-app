@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OrderItemCellView: View {
     @ObservedObject var viewModel : StoreViewModel
-    @State var item : any StoreItem
+    var item : any StoreItem
     
     var body: some View {
         ZStack{
@@ -63,12 +63,11 @@ struct OrderItemCellView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         if item.quantity > 1 {
-                            item.quantity -= 1
                             viewModel.remove(item: item)
                         }
                     }
                 
-                Text("\(item.quantity)")
+                Text(String(item.quantity))
                     .bold()
                     .padding(.horizontal, 10)
                 
@@ -77,15 +76,11 @@ struct OrderItemCellView: View {
                     .frame(height:30)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        viewModel.order(item: item)
-                        item.quantity += 1
+                        viewModel.add(item: item)
                     }
             }
-            
         }
-        
-        
-    }
+     }
 }
 
 struct OrderItemCellView_Previews: PreviewProvider {
