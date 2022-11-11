@@ -27,12 +27,12 @@ struct BuonAppetitoApp: App {
                     }
                     .tag(1)
                 
-                CartView(viewModel: viewModel)
+                CartView(viewModel: viewModel, selectedTab: $selectedTab)
                     .tabItem {
                         Label("Cart", systemImage: "cart.fill")
                     }
                     .tag(2)
-                    .badge(viewModel.orders.count > 0 ? viewModel.orderCount: 0)
+                    .badge(viewModel.orders.count > 0 ? viewModel.orderCount : 0)
             }
         }
     }

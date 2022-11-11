@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CartView: View {
     @ObservedObject var viewModel : StoreViewModel
+    @Binding var selectedTab : Int
     
     var body: some View {
         NavigationView {
@@ -27,18 +28,27 @@ struct CartView: View {
                             .font(.largeTitle)
                     }
                 }else {
-                    VStack{
-                        ScrollView{
-                            ForEach(viewModel.orders, id: \.anyHashableID){ order in
-                                OrderItemCellView(viewModel: viewModel, item: order)
-                            }
+                    ZStack{
+                        
+                        if viewModel.showAlert {
+                            OrderCompleteView(viewModel:viewModel, title: "Thank you! 🍕", description: "We are preparing your order and it should be there in no time!")
+                                .zIndex(2)
                         }
-                        Spacer()
                         
-                        subtotal
-                        
-                        NavigationLink(destination: OrderCompleteView()) {
+                        VStack{
+                            ScrollView{
+                                ForEach(viewModel.orders, id: \.anyHashableID){ order in
+                                    OrderItemCellView(viewModel: viewModel, item: order)
+                                }
+                            }
+                            Spacer()
+                            
+                            subtotal
+                            
                             OrderButton(text: "Place Order")
+                                .onTapGesture {
+                                    viewModel.showAlert = true
+                                }
                         }
                     }
                 }
@@ -86,6 +96,6 @@ struct CartView: View {
 
 struct CartView_Previews: PreviewProvider {
     static var previews: some View {
-        CartView(viewModel: StoreViewModel())
+        CartView(viewModel: StoreViewModel(), selectedTab: .constant(2))
     }
 }

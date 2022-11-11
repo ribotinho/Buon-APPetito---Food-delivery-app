@@ -25,10 +25,13 @@ struct OrderItemCellView: View {
                     .frame(width:50, height: 50)
                     .padding(.leading)
                 
-                VStack (alignment: .leading){
-                    Text("\(item.name) - \(String(format: "%.1f €", item.totalPrice))")
+                VStack (alignment: .leading, spacing: 5){
+                    Text("\(item.name) - \(String(format: "%.2f €", item.totalPrice))")
                         .bold()
                         .padding(.bottom, 4)
+                    
+                    ingredientsList()
+                        .offset(y:-10)
                     
                     HStack {
                         stepper()
@@ -46,6 +49,15 @@ struct OrderItemCellView: View {
         }
         .padding(.horizontal)
         .frame(height: 100)
+    }
+    
+    @ViewBuilder
+    func ingredientsList() -> some View {
+        if let foodItem = item as? FoodItem {
+            Text(foodItem.ingredientsString)
+                .foregroundColor(.secondary)
+                .font(.footnote)
+        }
     }
     
     @ViewBuilder

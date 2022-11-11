@@ -10,7 +10,6 @@ import Foundation
 struct FoodItem : StoreItem {
     var id: UUID = UUID()
     var name: String
-    var description: String
     var quantity: Int
     var price: Double
     var kcal: Int
@@ -24,9 +23,16 @@ struct FoodItem : StoreItem {
         return kcal + ingredients.map{ $0.quantity > 0 ? $0.kcal : 0}.reduce(0, +)
     }
     
+    var ingredientsPrice : Double {
+        return price + ingredients.filter{$0.quantity > 0}.map{$0.price}.reduce(0, +)
+    }
+    
     var totalPrice : Double {
-        let amount = price + ingredients.map({$0.quantity > 0 ? $0.price : 0}).reduce(0, +)
-        return amount  * Double(quantity)
+        return ingredientsPrice  * Double(quantity)
+    }
+    
+    var ingredientsString : String {
+        return ingredients.filter{$0.quantity > 0}.map{$0.name}.joined(separator: ", ")
     }
     
     mutating func addIngredient(ingredient : Ingredient){
@@ -43,5 +49,5 @@ struct FoodItem : StoreItem {
 }
 
 extension FoodItem {
-    static let example = FoodItem(name: "BBQ Pizza", description: "", quantity: 1, price: 14.5, kcal: 1, type: .pizza, imageName: "pizza-bbq", ingredients: [], rating: 4.5, preparationTime: 10)
+    static let example = FoodItem(name: "BBQ Pizza", quantity: 1, price: 14.5, kcal: 1, type: .pizza, imageName: "pizza-bbq", ingredients: [], rating: 4.5, preparationTime: 10)
 }

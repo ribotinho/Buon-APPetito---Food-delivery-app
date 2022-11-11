@@ -10,7 +10,6 @@ import Foundation
 protocol StoreItem : Identifiable {
     var anyHashableID: AnyHashable { get }
     var name : String { get }
-    var description : String { get }
     var quantity : Int { get set }
     var price : Double { get }
     var kcal : Int { get }
